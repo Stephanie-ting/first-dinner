@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特别的邀请</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light-blue: #e0f7fa;
+            --main-purple: #9370DB;
+            --deep-purple: #5d3fd3;
+            --sky-blue: #4facfe;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 动态爱心底纹 */
+        .hearts-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: rgba(147, 112, 219, 0.3);
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* 文字样式布局 */
+        .text-content {
+            text-align: center;
+            z-index: 10;
+            margin-bottom: 60px; /* 增加文字与按钮的间距 */
+        }
+
+        .name-title {
+            font-family: 'Ma Shan Zheng', cursive; /* 中文艺术字 */
+            color: var(--deep-purple);
+            font-size: 3.5rem;
+            margin-bottom: 40px; /* 增加第一行和第二行的间隔 */
+            display: block;
+        }
+
+        .invite-text {
+            font-family: 'Dancing Script', cursive; /* 英文手写艺术字 */
+            color: var(--deep-purple);
+            font-size: 2.5rem;
+            margin: 0;
+            display: block;
+        }
+
+        .btn-container {
+            position: relative;
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        button {
+            padding: 15px 45px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        #noBtn {
+            background-color: white;
+            color: var(--main-purple);
+            border: 2px solid var(--main-purple);
+        }
+
+        #success-page {
+            display: none;
+            text-align: center;
+            z-index: 20;
+            animation: popIn 0.8s ease;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .cat-img {
+            width: 280px;
+            border: 10px solid white;
+            border-radius: 30px;
+            box-shadow: 0 15px 45px rgba(147, 112, 219, 0.4);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts-container" id="hearts"></div>
+
+    <div id="question-page">
+        <div class="text-content">
+            <span class="name-title">于沛先生</span>
+            <span class="invite-text" id="title">Would you like to have dinner with me?</span>
+        </div>
+        <div class="btn-container">
+            <button id="yesBtn">Yes!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="success-page">
+        <h1 style="font-family: 'Ma Shan Zheng', cursive; font-size: 3rem; color: #4facfe;">就知道哥哥会同意的！💙</h1>
+        <p style="color: #9370DB; font-size: 1.5rem; font-weight: bold;">已经开始期待了呢 2026年2月10日 ~✨</p>
+        <h1 style="font-family: 'Dancing Script', cursive; font-size: 2rem; color: #4facfe;">You made me the happiest person！💙</h1>
+        <!-- <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIwdWswYXBqYm90ZDRpZzR6NHR4eG55ZzR6NHR4eG55ZzR6NHR4eG55JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNwSULPk2m/giphy.gif" class="cat-img"> -->
+    </div>
+
+    <script>
+        // 背景爱心逻辑
+        const heartsContainer = document.getElementById('hearts');
+        function createBackgroundHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💜';
+            heart.className = 'floating-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createBackgroundHeart, 450);
+
+        let yesScale = 1;
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const title = document.getElementById('title');
+
+        const phrases = ["哥哥再考虑一下？", "一定是哥哥手滑点错了？", "哥哥真的不点Yes吗？", "它会变大哦！", "哥哥不要点我呀~"];
+
+
+        function grow() {
+            yesScale += 0.5;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            // 改变英文部分的文字
+            title.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+        }
+
+        noBtn.addEventListener('click', () => {
+            grow();
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        });
+
+        yesBtn.addEventListener('click', () => {
+            document.getElementById('question-page').style.display = 'none';
+            document.getElementById('success-page').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
