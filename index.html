@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To沛沛/title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <link href="https://fonts.loli.net/css2?family=Dancing+Script:wght@700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-light-blue: #e0f7fa;
@@ -60,17 +60,20 @@
         .name-title {
             font-family: 'Zhi Mang Xing', cursive; 
             color: var(--deep-purple);
-            font-size: 5rem; /* 艺术字体通常偏小，可以适当调大 */
+            font-size: 4rem; 
             margin-bottom: 50px; 
             display: block;
+            /* 增加平滑显示的过渡 */
+            animation: fadeInDown 1.2s ease-out;
         }
 
         .invite-text {
-            font-family: 'Dancing Script', cursive; /* 英文手写艺术字 */
+            font-family: 'Dancing Script', cursive; 
             color: var(--deep-purple);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin: 0;
             display: block;
+            animation: fadeInUp 1.5s ease-out;
         }
 
         .btn-container {
@@ -111,6 +114,15 @@
             text-align: center;
             z-index: 20;
             animation: popIn 0.8s ease;
+        }
+        /* 文字入场动画，让打开瞬间更有仪式感 */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes popIn {
